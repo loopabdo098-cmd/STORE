@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e1a;
+  --surface:#111827;
+  --surface2:#1a2235;
+  --surface3:#1f2d42;
+  --accent:#f59e0b;
+  --accent2:#10b981;
+  --accent3:#ef4444;
+  --accent4:#3b82f6;
+  --text:#e2e8f0;
+  --text2:#94a3b8;
+  --text3:#475569;
+  --border:#1e2d42;
+  --gold:#f59e0b;
+  --radius:12px;
+}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:rtl}
+.app{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:260px;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;position:fixed;right:0;top:0;bottom:0;z-index:100;padding:0}
+.logo{padding:24px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.logo-text{font-size:15px;font-weight:700;color:var(--text);line-height:1.3}
+.logo-sub{font-size:11px;color:var(--text2);font-weight:400}
+.nav{padding:16px 12px;flex:1;overflow-y:auto}
+.nav-section{font-size:10px;color:var(--text3);padding:8px 8px 4px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:all .2s;font-size:14px;color:var(--text2);margin-bottom:2px;border:none;background:none;width:100%;text-align:right}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:rgba(245,158,11,.12);color:var(--gold);font-weight:600}
+.nav-item i{font-size:18px;opacity:.8}
+.nav-badge{margin-right:auto;background:var(--accent3);color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:700}
+.sidebar-footer{padding:16px;border-top:1px solid var(--border)}
+.shop-selector{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:.2s}
+.shop-selector:hover{border-color:var(--gold)}
+.shop-dot{width:8px;height:8px;background:var(--accent2);border-radius:50%;flex-shrink:0}
+.shop-name{font-size:13px;font-weight:600;flex:1}
+.shop-change{font-size:11px;color:var(--text2)}
+
+/* MAIN */
+.main{margin-right:260px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.page-title{font-size:20px;font-weight:700;color:var(--text)}
+.page-sub{font-size:12px;color:var(--text2);margin-top:2px}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none;font-family:'Cairo',sans-serif}
+.btn-primary{background:var(--gold);color:#0a0e1a}
+.btn-primary:hover{background:#d97706}
+.btn-outline{background:transparent;color:var(--text2);border:1px solid var(--border)}
+.btn-outline:hover{background:var(--surface2);color:var(--text);border-color:var(--text3)}
+.btn-danger{background:rgba(239,68,68,.1);color:var(--accent3);border:1px solid rgba(239,68,68,.2)}
+.btn-danger:hover{background:rgba(239,68,68,.2)}
+.btn-success{background:rgba(16,185,129,.1);color:var(--accent2);border:1px solid rgba(16,185,129,.2)}
+.btn-success:hover{background:rgba(16,185,129,.2)}
+
+.content{padding:28px;flex:1}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;position:relative;overflow:hidden;transition:.2s;cursor:default}
+.stat-card:hover{border-color:var(--text3);transform:translateY(-1px)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat-card.gold::before{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.stat-card.red::before{background:linear-gradient(90deg,#ef4444,#b91c1c)}
+.stat-card.green::before{background:linear-gradient(90deg,#10b981,#059669)}
+.stat-card.blue::before{background:linear-gradient(90deg,#3b82f6,#2563eb)}
+.stat-label{font-size:12px;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.stat-value{font-size:26px;font-weight:900;color:var(--text);line-height:1}
+.stat-sub{font-size:11px;color:var(--text2);margin-top:6px}
+.stat-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:36px;opacity:.08}
+
+/* CONTENT GRID */
+.content-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-body{padding:0}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;color:var(--text3);font-weight:600;padding:10px 16px;text-align:right;background:var(--surface2);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;letter-spacing:.5px}
+td{padding:12px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+.tr-link{cursor:pointer}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge-red{background:rgba(239,68,68,.12);color:#f87171}
+.badge-green{background:rgba(16,185,129,.12);color:#34d399}
+.badge-amber{background:rgba(245,158,11,.12);color:#fbbf24}
+.badge-blue{background:rgba(59,130,246,.12);color:#60a5fa}
+
+/* PROGRESS BAR */
+.progress{background:var(--surface3);border-radius:4px;height:6px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;border-radius:4px;transition:width .5s}
+
+/* AVATAR */
+.avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;border:2px solid var(--border)}
+
+/* SIDE PANEL */
+.activity-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.activity-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.activity-text{font-size:13px;color:var(--text);line-height:1.5}
+.activity-time{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 25px 60px rgba(0,0,0,.5)}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:17px;font-weight:700}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+.form-group{margin-bottom:18px}
+.form-label{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:7px;display:block}
+.form-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-size:14px;font-family:'Cairo',sans-serif;transition:.2s;direction:rtl}
+.form-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,158,11,.1)}
+.form-input::placeholder{color:var(--text3)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-select{appearance:none}
+
+/* SEARCH */
+.search-box{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;flex:1}
+.search-box input{background:none;border:none;outline:none;color:var(--text);font-size:13px;width:100%;font-family:'Cairo',sans-serif;direction:rtl}
+.search-box input::placeholder{color:var(--text3)}
+
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border)}
+.tab-btn{padding:12px 20px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:.2s;font-family:'Cairo',sans-serif;background:none;border-top:none;border-left:none;border-right:none}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-btn:hover:not(.active){color:var(--text)}
+
+/* AMOUNT COLORS */
+.amount-red{color:#f87171;font-weight:700}
+.amount-green{color:#34d399;font-weight:700}
+.amount-gold{color:#fbbf24;font-weight:700}
+
+/* CLIENT DETAIL */
+.client-profile{padding:20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)}
+.client-avatar-lg{width:54px;height:54px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0}
+.debt-progress-card{padding:16px;border-bottom:1px solid var(--border)}
+.mini-stat{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border)}
+.mini-stat-item{padding:14px 16px;border-left:1px solid var(--border)}
+.mini-stat-item:last-child{border-left:none}
+.mini-label{font-size:11px;color:var(--text3);margin-bottom:4px;font-weight:600;text-transform:uppercase}
+.mini-value{font-size:17px;font-weight:800}
+
+/* ALERT */
+.alert{padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.alert-warning{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:#fbbf24}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:24px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,.4);transform:translateY(80px);opacity:0;transition:all .3s;z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* EMPTY STATE */
+.empty-state{padding:40px;text-align:center;color:var(--text2)}
+.empty-icon{font-size:48px;opacity:.2;margin-bottom:12px}
+.empty-text{font-size:14px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .content-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-icon">📊</div>
+    <div>
+      <div class="logo-text">دَيْن تراك</div>
+      <div class="logo-sub">نظام تسيير الديون</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">القائمة الرئيسية</div>
+    <button class="nav-item active" onclick="showPage('dashboard')"><i class="ti ti-layout-dashboard"></i> لوحة التحكم</button>
+    <button class="nav-item" onclick="showPage('clients')"><i class="ti ti-users"></i> العملاء <span class="nav-badge" id="badge-count">0</span></button>
+    <button class="nav-item" onclick="showPage('debts')"><i class="ti ti-credit-card"></i> الديون</button>
+    <button class="nav-item" onclick="showPage('payments')"><i class="ti ti-cash"></i> المدفوعات</button>
+    <div class="nav-section">التقارير</div>
+    <button class="nav-item" onclick="showPage('reports')"><i class="ti ti-chart-bar"></i> التقارير</button>
+    <button class="nav-item" onclick="showPage('alerts')"><i class="ti ti-bell"></i> التنبيهات</button>
+    <div class="nav-section">الإعدادات</div>
+    <button class="nav-item" onclick="showPage('shops')"><i class="ti ti-building-store"></i> إدارة المحلات</button>
+    <button class="nav-item" onclick="showPage('settings')"><i class="ti ti-settings"></i> الإعدادات</button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="shop-selector" onclick="alert('تبديل المحل')">
+      <div class="shop-dot"></div>
+      <div class="shop-name" id="current-shop">محل الأمل - العام</div>
+      <i class="ti ti-chevron-left" style="color:var(--text3);font-size:14px;margin-right:auto"></i>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- DASHBOARD PAGE -->
+  <div id="page-dashboard" class="page">
+    <div class="topbar">
+      <div>
+        <div class="page-title">لوحة التحكم</div>
+        <div class="page-sub" id="current-date"></div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-outline" onclick="exportData()"><i class="ti ti-download"></i> تصدير</button>
+        <button class="btn btn-primary" onclick="openModal('add-debt')"><i class="ti ti-plus"></i> إضافة دَيْن</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="alert alert-warning">
+        <i class="ti ti-alert-triangle"></i>
+        <span id="overdue-alert">لديك <strong>0</strong> دَيْن متأخر يحتاج إلى متابعة عاجلة</span>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card gold">
+          <div class="stat-label"><i class="ti ti-moneybag" style="color:var(--gold)"></i> إجمالي الديون</div>
+          <div class="stat-value" id="stat-total">0 دج</div>
+          <div class="stat-sub" id="stat-debts-count">0 دَيْن نشط</div>
+          <i class="ti ti-moneybag stat-icon"></i>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-label"><i class="ti ti-clock-exclamation" style="color:var(--accent3)"></i> متأخرة السداد</div>
+          <div class="stat-value" id="stat-overdue">0 دج</div>
+          <div class="stat-sub" id="stat-overdue-count">0 عميل</div>
+          <i class="ti ti-alert-circle stat-icon"></i>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label"><i class="ti ti-check" style="color:var(--accent2)"></i> المحصّل هذا الشهر</div>
+          <div class="stat-value" id="stat-collected">0 دج</div>
+          <div class="stat-sub" id="stat-collected-count">0 دفعة</div>
+          <i class="ti ti-trending-up stat-icon"></i>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label"><i class="ti ti-users" style="color:var(--accent4)"></i> إجمالي العملاء</div>
+          <div class="stat-value" id="stat-clients">0</div>
+          <div class="stat-sub" id="stat-clients-active">0 نشط</div>
+          <i class="ti ti-users stat-icon"></i>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <!-- DEBTS TABLE -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="ti ti-credit-card" style="color:var(--gold)"></i> آخر الديون</div>
+            <button class="btn btn-outline" style="font-size:12px;padding:6px 12px" onclick="showPage('debts')">عرض الكل</button>
+          </div>
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border)">
+            <div class="search-box">
+              <i class="ti ti-search" style="color:var(--text3)"></i>
+              <input placeholder="بحث عن عميل..." oninput="filterTable(this.value)">
+            </div>
+          </div>
+          <div class="card-body" style="overflow-x:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>العميل</th>
+                  <th>المبلغ الأصلي</th>
+                  <th>المتبقي</th>
+                  <th>الحالة</th>
+                  <th>تاريخ الاستحقاق</th>
+                  <th>إجراء</th>
+                </tr>
+              </thead>
+              <tbody id="debts-tbody">
+                <tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">لا توجد ديون بعد. أضف أول دَيْن!</div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <!-- TOP DEBTORS -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="ti ti-podium" style="color:var(--accent3)"></i> أكبر المديونين</div>
+            </div>
+            <div id="top-debtors">
+              <div class="activity-item"><span style="color:var(--text3);font-size:13px">لا يوجد بيانات بعد</span></div>
+            </div>
+          </div>
+
+          <!-- RECENT ACTIVITY -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="ti ti-activity" style="color:var(--accent2)"></i> آخر النشاطات</div>
+            </div>
+            <div id="activity-log">
+              <div class="activity-item"><span style="color:var(--text3);font-size:13px">لا توجد نشاطات بعد</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTS PAGE -->
+  <div id="page-clients" class="page" style="display:none">
+    <div class="topbar">
+      <div>
+        <div class="page-title">إدارة العملاء</div>
+        <div class="page-sub">جميع العملاء المسجلين في النظام</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-primary" onclick="openModal('add-client')"><i class="ti ti-user-plus"></i> إضافة عميل</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="ti ti-users" style="color:var(--gold)"></i> قائمة العملاء</div>
+          <div class="search-box" style="width:260px">
+            <i class="ti ti-search" style="color:var(--text3)"></i>
+            <input placeholder="بحث..." oninput="filterClients(this.value)" id="client-search">
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>العميل</th>
+                <th>الهاتف</th>
+                <th>إجمالي الديون</th>
+                <th>المدفوع</th>
+                <th>المتبقي</th>
+                <th>الحالة</th>
+                <th>إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="clients-tbody">
+              <tr><td colspan="7"><div class="empty-state"><div class="empty-icon">👥</div><div class="empty-text">لا توجد عملاء بعد. أضف أول عميل!</div></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENTS PAGE -->
+  <div id="page-payments" class="page" style="display:none">
+    <div class="topbar">
+      <div>
+        <div class="page-title">سجل المدفوعات</div>
+        <div class="page-sub">جميع عمليات الدفع المسجلة</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-primary" onclick="openModal('add-payment')"><i class="ti ti-cash"></i> تسجيل دفعة</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="ti ti-receipt" style="color:var(--accent2)"></i> المدفوعات</div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr><th>التاريخ</th><th>العميل</th><th>المبلغ</th><th>ملاحظة</th></tr>
+            </thead>
+            <tbody id="payments-tbody">
+              <tr><td colspan="4"><div class="empty-state"><div class="empty-icon">💳</div><div class="empty-text">لا توجد مدفوعات بعد</div></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEBTS PAGE -->
+  <div id="page-debts" class="page" style="display:none">
+    <div class="topbar">
+      <div>
+        <div class="page-title">إدارة الديون</div>
+        <div class="page-sub">جميع الديون المسجلة</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-primary" onclick="openModal('add-debt')"><i class="ti ti-plus"></i> إضافة دَيْن</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="ti ti-credit-card" style="color:var(--gold)"></i> جميع الديون</div>
+          <div class="tabs" style="border:none">
+            <button class="tab-btn active" onclick="filterDebtStatus('all',this)">الكل</button>
+            <button class="tab-btn" onclick="filterDebtStatus('active',this)">نشطة</button>
+            <button class="tab-btn" onclick="filterDebtStatus('overdue',this)">متأخرة</button>
+            <button class="tab-btn" onclick="filterDebtStatus('paid',this)">مسددة</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr><th>العميل</th><th>المحل</th><th>المبلغ</th><th>المتبقي</th><th>الاستحقاق</th><th>الحالة</th><th>إجراءات</th></tr>
+            </thead>
+            <tbody id="all-debts-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORTS PAGE -->
+  <div id="page-reports" class="page" style="display:none">
+    <div class="topbar">
+      <div><div class="page-title">التقارير والإحصائيات</div></div>
+    </div>
+    <div class="content">
+      <div class="stats-grid">
+        <div class="stat-card gold">
+          <div class="stat-label">نسبة التحصيل</div>
+          <div class="stat-value" id="rep-rate">0%</div>
+          <div class="progress" style="margin-top:10px"><div class="progress-fill" id="rep-bar" style="width:0%;background:var(--gold)"></div></div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">متوسط الدَيْن</div>
+          <div class="stat-value" id="rep-avg">0 دج</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-label">أعلى دَيْن</div>
+          <div class="stat-value" id="rep-max">0 دج</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label">عدد المحلات</div>
+          <div class="stat-value" id="rep-shops">1</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">ملخص تفصيلي</div></div>
+        <div style="padding:20px;color:var(--text2);font-size:14px;line-height:2" id="report-detail">سيظهر التقرير التفصيلي هنا بعد إضافة البيانات.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERTS PAGE -->
+  <div id="page-alerts" class="page" style="display:none">
+    <div class="topbar"><div><div class="page-title">التنبيهات</div></div></div>
+    <div class="content">
+      <div class="card">
+        <div class="card-header"><div class="card-title"><i class="ti ti-bell" style="color:var(--gold)"></i> الديون المتأخرة والمستحقة</div></div>
+        <div id="alerts-list"><div class="empty-state"><div class="empty-icon">🔔</div><div class="empty-text">لا توجد تنبيهات حالياً</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOPS PAGE -->
+  <div id="page-shops" class="page" style="display:none">
+    <div class="topbar">
+      <div><div class="page-title">إدارة المحلات</div></div>
+      <button class="btn btn-primary" onclick="openModal('add-shop')"><i class="ti ti-plus"></i> إضافة محل</button>
+    </div>
+    <div class="content">
+      <div class="card">
+        <div class="card-header"><div class="card-title"><i class="ti ti-building-store" style="color:var(--gold)"></i> المحلات المسجلة</div></div>
+        <div id="shops-list" style="padding:0"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS PAGE -->
+  <div id="page-settings" class="page" style="display:none">
+    <div class="topbar"><div><div class="page-title">الإعدادات</div></div></div>
+    <div class="content">
+      <div class="card" style="max-width:500px">
+        <div class="card-header"><div class="card-title"><i class="ti ti-settings" style="color:var(--gold)"></i> إعدادات النظام</div></div>
+        <div style="padding:24px">
+          <div class="form-group">
+            <label class="form-label">اسم المحل الرئيسي</label>
+            <input class="form-input" value="محل الأمل - العام" id="main-shop-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">العملة المستخدمة</label>
+            <select class="form-input form-select" id="currency">
+              <option>دج (دينار جزائري)</option>
+              <option>د.م (درهم مغربي)</option>
+              <option>د.ت (دينار تونسي)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">تنبيه قبل الاستحقاق بـ</label>
+            <select class="form-input form-select">
+              <option>3 أيام</option>
+              <option>7 أيام</option>
+              <option>15 يوم</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="saveSettings()"><i class="ti ti-check"></i> حفظ الإعدادات</button>
+          <button class="btn btn-danger" style="margin-right:10px" onclick="if(confirm('هل أنت متأكد من حذف جميع البيانات؟')){clearAll()}"><i class="ti ti-trash"></i> مسح كل البيانات</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- MODALS -->
+
+<!-- ADD CLIENT -->
+<div class="modal-overlay" id="modal-add-client">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title"><i class="ti ti-user-plus" style="color:var(--gold)"></i> إضافة عميل جديد</div>
+      <button onclick="closeModal('add-client')" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:20px"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">الاسم الكامل *</label>
+          <input class="form-input" id="c-name" placeholder="مثال: أحمد بن علي">
+        </div>
+        <div class="form-group">
+          <label class="form-label">رقم الهاتف</label>
+          <input class="form-input" id="c-phone" placeholder="05XXXXXXXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">العنوان</label>
+        <input class="form-input" id="c-address" placeholder="الحي، المدينة">
+      </div>
+      <div class="form-group">
+        <label class="form-label">ملاحظات</label>
+        <textarea class="form-input" id="c-notes" rows="2" placeholder="أي معلومات إضافية..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('add-client')">إلغاء</button>
+      <button class="btn btn-primary" onclick="addClient()"><i class="ti ti-check"></i> حفظ العميل</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD DEBT -->
+<div class="modal-overlay" id="modal-add-debt">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title"><i class="ti ti-credit-card" style="color:var(--gold)"></i> إضافة دَيْن جديد</div>
+      <button onclick="closeModal('add-debt')" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:20px"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">العميل *</label>
+        <select class="form-input form-select" id="d-client">
+          <option value="">اختر عميلاً...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">المحل</label>
+        <select class="form-input form-select" id="d-shop">
+          <option value="">اختر المحل...</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">المبلغ (دج) *</label>
+          <input class="form-input" id="d-amount" type="number" placeholder="0.00" min="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label">تاريخ الاستحقاق *</label>
+          <input class="form-input" id="d-due" type="date">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">وصف / سبب الدَيْن</label>
+        <input class="form-input" id="d-desc" placeholder="مثال: بضاعة متنوعة">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('add-debt')">إلغاء</button>
+      <button class="btn btn-primary" onclick="addDebt()"><i class="ti ti-check"></i> تسجيل الدَيْن</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD PAYMENT -->
+<div class="modal-overlay" id="modal-add-payment">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title"><i class="ti ti-cash" style="color:var(--accent2)"></i> تسجيل دفعة</div>
+      <button onclick="closeModal('add-payment')" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:20px"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">اختر الدَيْن *</label>
+        <select class="form-input form-select" id="p-debt" onchange="fillPaymentMax()">
+          <option value="">اختر الدَيْن...</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">المبلغ المدفوع (دج) *</label>
+          <input class="form-input" id="p-amount" type="number" min="0" placeholder="0.00">
+        </div>
+        <div class="form-group">
+          <label class="form-label">المتبقي</label>
+          <input class="form-input" id="p-remaining" readonly style="opacity:.6" placeholder="—">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">ملاحظة</label>
+        <input class="form-input" id="p-note" placeholder="مثال: دفعة جزئية نقداً">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('add-payment')">إلغاء</button>
+      <button class="btn btn-success" onclick="addPayment()"><i class="ti ti-check"></i> تأكيد الدفعة</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD SHOP -->
+<div class="modal-overlay" id="modal-add-shop">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title"><i class="ti ti-building-store" style="color:var(--gold)"></i> إضافة محل جديد</div>
+      <button onclick="closeModal('add-shop')" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:20px"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">اسم المحل *</label>
+        <input class="form-input" id="sh-name" placeholder="مثال: محل الأمل">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">صاحب المحل</label>
+          <input class="form-input" id="sh-owner" placeholder="الاسم الكامل">
+        </div>
+        <div class="form-group">
+          <label class="form-label">رقم الهاتف</label>
+          <input class="form-input" id="sh-phone" placeholder="05XXXXXXXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">العنوان / الحي</label>
+        <input class="form-input" id="sh-address" placeholder="العنوان">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('add-shop')">إلغاء</button>
+      <button class="btn btn-primary" onclick="addShop()"><i class="ti ti-check"></i> حفظ المحل</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <i class="ti ti-check-circle" style="color:var(--accent2);font-size:18px"></i>
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+// === DATA STORE ===
+let data = JSON.parse(localStorage.getItem('deintrack') || '{"clients":[],"debts":[],"payments":[],"shops":["محل الأمل - العام"]}');
+
+function save(){localStorage.setItem('deintrack',JSON.stringify(data))}
+
+// === DATE ===
+const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const days   = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+function formatDate(d){const dt=new Date(d);return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`}
+function isOverdue(d){return new Date(d)<new Date() && d}
+function today(){return new Date().toISOString().split('T')[0]}
+
+// === PAGES ===
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+  document.getElementById('page-'+name).style.display='';
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  const map={dashboard:0,clients:1,debts:2,payments:3,reports:4,alerts:5,shops:6,settings:7};
+  const items=document.querySelectorAll('.nav-item');
+  if(map[name]!==undefined) items[map[name]]?.classList.add('active');
+  refresh(name);
+}
+
+// === MODALS ===
+function openModal(id){
+  if(id==='add-debt'||id==='add-payment'){
+    const sel=document.getElementById(id==='add-debt'?'d-client':'p-debt');
+    sel.innerHTML='<option value="">اختر...</option>';
+    if(id==='add-debt'){
+      data.clients.forEach(c=>sel.innerHTML+=`<option value="${c.id}">${c.name}</option>`);
+      const ds=document.getElementById('d-shop');
+      ds.innerHTML='<option value="">اختر المحل...</option>';
+      data.shops.forEach(s=>ds.innerHTML+=`<option>${s}</option>`);
+      document.getElementById('d-due').value=today();
+    } else {
+      data.debts.filter(d=>d.status!=='paid').forEach(d=>{
+        const cl=data.clients.find(c=>c.id===d.clientId);
+        sel.innerHTML+=`<option value="${d.id}">${cl?cl.name:'?'} - ${fmtMoney(d.remaining)} دج</option>`;
+      });
+    }
+  }
+  if(id==='add-shop'){
+    document.getElementById('sh-name').value='';
+    document.getElementById('sh-owner').value='';
+    document.getElementById('sh-phone').value='';
+    document.getElementById('sh-address').value='';
+  }
+  document.getElementById('modal-'+id).classList.add('open');
+}
+function closeModal(id){document.getElementById('modal-'+id).classList.remove('open')}
+
+// === TOAST ===
+function toast(msg,icon='ti-check-circle',color='var(--accent2)'){
+  const t=document.getElementById('toast');
+  t.querySelector('i').className='ti '+icon;
+  t.querySelector('i').style.color=color;
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// === HELPERS ===
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
+function fmtMoney(n){return Number(n).toLocaleString('fr-DZ')}
+function getInitials(name){return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase()}
+const colors=['#f59e0b','#10b981','#3b82f6','#ef4444','#8b5cf6','#ec4899','#06b6d4','#f97316'];
+function colorFor(str){let h=0;for(let c of str)h=(h*31+c.charCodeAt(0))%colors.length;return colors[h]}
+
+// === ADD CLIENT ===
+function addClient(){
+  const name=document.getElementById('c-name').value.trim();
+  if(!name)return toast('الاسم مطلوب','ti-alert-circle','var(--accent3)');
+  const c={id:uid(),name,phone:document.getElementById('c-phone').value,address:document.getElementById('c-address').value,notes:document.getElementById('c-notes').value,createdAt:today()};
+  data.clients.push(c);
+  save();closeModal('add-client');
+  document.getElementById('c-name').value='';document.getElementById('c-phone').value='';document.getElementById('c-address').value='';document.getElementById('c-notes').value='';
+  toast(`تم إضافة العميل "${name}" بنجاح`);
+  updateBadge();refreshDashboard();refreshClients();
+}
+
+// === ADD DEBT ===
+function addDebt(){
+  const clientId=document.getElementById('d-client').value;
+  const amount=parseFloat(document.getElementById('d-amount').value);
+  const due=document.getElementById('d-due').value;
+  if(!clientId||!amount||!due)return toast('يرجى ملء جميع الحقول المطلوبة','ti-alert-circle','var(--accent3)');
+  const d={id:uid(),clientId,shop:document.getElementById('d-shop').value,amount,remaining:amount,desc:document.getElementById('d-desc').value,dueDate:due,status:'active',createdAt:today()};
+  data.debts.push(d);
+  save();closeModal('add-debt');
+  document.getElementById('d-amount').value='';document.getElementById('d-desc').value='';
+  const cl=data.clients.find(c=>c.id===clientId);
+  addActivity(`دَيْن جديد: ${cl?cl.name:''} — ${fmtMoney(amount)} دج`,'ti-credit-card','var(--gold)');
+  toast(`تم تسجيل الدَيْن بمبلغ ${fmtMoney(amount)} دج`);
+  refreshDashboard();refreshDebtsList();
+}
+
+// === ADD PAYMENT ===
+function fillPaymentMax(){
+  const id=document.getElementById('p-debt').value;
+  const d=data.debts.find(x=>x.id===id);
+  document.getElementById('p-remaining').value=d?fmtMoney(d.remaining)+' دج':'';
+  if(d)document.getElementById('p-amount').max=d.remaining;
+}
+function addPayment(){
+  const id=document.getElementById('p-debt').value;
+  const amount=parseFloat(document.getElementById('p-amount').value);
+  const note=document.getElementById('p-note').value;
+  const debt=data.debts.find(d=>d.id===id);
+  if(!debt||!amount)return toast('بيانات ناقصة','ti-alert-circle','var(--accent3)');
+  if(amount>debt.remaining)return toast('المبلغ أكبر من المتبقي','ti-alert-circle','var(--accent3)');
+  debt.remaining=Math.max(0,debt.remaining-amount);
+  if(debt.remaining===0)debt.status='paid';
+  data.payments.push({id:uid(),debtId:id,clientId:debt.clientId,amount,note,date:today()});
+  save();closeModal('add-payment');
+  const cl=data.clients.find(c=>c.id===debt.clientId);
+  addActivity(`دفعة: ${cl?cl.name:''} — ${fmtMoney(amount)} دج`,'ti-cash','var(--accent2)');
+  toast(`تم تسجيل الدفعة: ${fmtMoney(amount)} دج`,'ti-check-circle','var(--accent2)');
+  refreshDashboard();refreshPayments();refreshDebtsList();
+}
+
+// === ADD SHOP ===
+function addShop(){
+  const name=document.getElementById('sh-name').value.trim();
+  if(!name)return toast('اسم المحل مطلوب','ti-alert-circle','var(--accent3)');
+  data.shops.push(name);save();closeModal('add-shop');
+  toast(`تم إضافة "${name}" بنجاح`);
+  refreshShops();
+}
+
+// === ACTIVITY LOG ===
+let activities=[];
+function addActivity(text,icon,color){
+  activities.unshift({text,icon,color,time:new Date().toLocaleTimeString('ar-DZ',{hour:'2-digit',minute:'2-digit'})});
+  if(activities.length>6)activities.pop();
+  renderActivity();
+}
+function renderActivity(){
+  const el=document.getElementById('activity-log');
+  if(!activities.length){el.innerHTML='<div class="activity-item"><span style="color:var(--text3);font-size:13px">لا توجد نشاطات بعد</span></div>';return}
+  el.innerHTML=activities.map(a=>`<div class="activity-item"><div class="activity-icon" style="background:${a.color}18"><i class="ti ${a.icon}" style="color:${a.color}"></i></div><div><div class="activity-text">${a.text}</div><div class="activity-time">${a.time}</div></div></div>`).join('');
+}
+
+// === REFRESH ===
+function refresh(page){
+  if(page==='dashboard')refreshDashboard();
+  if(page==='clients')refreshClients();
+  if(page==='payments')refreshPayments();
+  if(page==='debts')refreshDebtsList();
+  if(page==='reports')refreshReports();
+  if(page==='alerts')refreshAlerts();
+  if(page==='shops')refreshShops();
+}
+
+function refreshDashboard(){
+  const totalDebt=data.debts.filter(d=>d.status!=='paid').reduce((s,d)=>s+d.remaining,0);
+  const overdueDebts=data.debts.filter(d=>d.status!=='paid'&&isOverdue(d.dueDate));
+  const overdueAmt=overdueDebts.reduce((s,d)=>s+d.remaining,0);
+  const thisMonth=today().slice(0,7);
+  const collected=data.payments.filter(p=>p.date.startsWith(thisMonth)).reduce((s,p)=>s+p.amount,0);
+  const collectedCount=data.payments.filter(p=>p.date.startsWith(thisMonth)).length;
+
+  document.getElementById('stat-total').textContent=fmtMoney(totalDebt)+' دج';
+  document.getElementById('stat-debts-count').textContent=data.debts.filter(d=>d.status!=='paid').length+' دَيْن نشط';
+  document.getElementById('stat-overdue').textContent=fmtMoney(overdueAmt)+' دج';
+  document.getElementById('stat-overdue-count').textContent=overdueDebts.length+' عميل';
+  document.getElementById('stat-collected').textContent=fmtMoney(collected)+' دج';
+  document.getElementById('stat-collected-count').textContent=collectedCount+' دفعة';
+  document.getElementById('stat-clients').textContent=data.clients.length;
+  document.getElementById('stat-clients-active').textContent=data.clients.filter(c=>data.debts.some(d=>d.clientId===c.id&&d.status!=='paid')).length+' نشط';
+  document.getElementById('overdue-alert').innerHTML=`لديك <strong>${overdueDebts.length}</strong> دَيْن متأخر يحتاج إلى متابعة عاجلة`;
+
+  // Debts table
+  const tbody=document.getElementById('debts-tbody');
+  if(!data.debts.length){tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">لا توجد ديون بعد. أضف أول دَيْن!</div></div></td></tr>';return}
+  const sorted=[...data.debts].sort((a,b)=>new Date(a.dueDate)-new Date(b.dueDate)).slice(0,10);
+  tbody.innerHTML=sorted.map(d=>{
+    const cl=data.clients.find(c=>c.id===d.clientId);
+    const ov=d.status!=='paid'&&isOverdue(d.dueDate);
+    const badge=d.status==='paid'?'<span class="badge badge-green"><i class="ti ti-check"></i> مسدد</span>':ov?'<span class="badge badge-red"><i class="ti ti-alert-triangle"></i> متأخر</span>':'<span class="badge badge-amber"><i class="ti ti-clock"></i> نشط</span>';
+    const pct=Math.round((1-d.remaining/d.amount)*100);
+    const col=colorFor(cl?cl.name:'');
+    return `<tr class="tr-link">
+      <td><div style="display:flex;align-items:center;gap:9px"><div class="avatar" style="background:${col}18;color:${col};border-color:${col}30">${cl?getInitials(cl.name):'?'}</div>${cl?cl.name:'عميل محذوف'}</div></td>
+      <td class="amount-gold">${fmtMoney(d.amount)} دج</td>
+      <td><div style="font-weight:700;color:${d.remaining===0?'var(--accent2)':'var(--accent3)'}">${fmtMoney(d.remaining)} دج</div><div class="progress" style="width:80px;margin-top:4px"><div class="progress-fill" style="width:${pct}%;background:${pct===100?'var(--accent2)':'var(--gold)'}"></div></div></td>
+      <td>${badge}</td>
+      <td style="color:${ov?'var(--accent3)':'var(--text2)'}"><i class="ti ti-calendar" style="font-size:13px;margin-left:4px"></i>${formatDate(d.dueDate)}</td>
+      <td><button class="btn btn-success" style="font-size:11px;padding:5px 10px" onclick="quickPay('${d.id}')"><i class="ti ti-cash"></i> دفعة</button></td>
+    </tr>`;
+  }).join('');
+
+  // Top debtors
+  const debtorMap={};
+  data.debts.filter(d=>d.status!=='paid').forEach(d=>{debtorMap[d.clientId]=(debtorMap[d.clientId]||0)+d.remaining});
+  const sorted2=Object.entries(debtorMap).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const el=document.getElementById('top-debtors');
+  if(!sorted2.length){el.innerHTML='<div class="activity-item"><span style="color:var(--text3);font-size:13px">لا يوجد بيانات بعد</span></div>';return}
+  const maxAmt=sorted2[0][1];
+  el.innerHTML=sorted2.map(([cid,amt])=>{
+    const cl=data.clients.find(c=>c.id===cid);
+    const col=colorFor(cl?cl.name:'');
+    const pct=Math.round(amt/maxAmt*100);
+    return `<div class="activity-item"><div class="avatar" style="background:${col}18;color:${col};border-color:${col}30;width:36px;height:36px;flex-shrink:0">${cl?getInitials(cl.name):'?'}</div><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;font-weight:600">${cl?cl.name:'محذوف'}</span><span class="amount-red" style="font-size:12px">${fmtMoney(amt)} دج</span></div><div class="progress"><div class="progress-fill" style="width:${pct}%;background:${col}"></div></div></div></div>`;
+  }).join('');
+
+  updateBadge();
+}
+
+function quickPay(debtId){
+  openModal('add-payment');
+  setTimeout(()=>{
+    const sel=document.getElementById('p-debt');
+    sel.value=debtId;fillPaymentMax();
+  },100);
+}
+
+function refreshClients(){
+  const tbody=document.getElementById('clients-tbody');
+  if(!data.clients.length){tbody.innerHTML='<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">👥</div><div class="empty-text">لا توجد عملاء. أضف عميلاً!</div></div></td></tr>';return}
+  renderClientsTable(data.clients);
+}
+
+function renderClientsTable(clients){
+  const tbody=document.getElementById('clients-tbody');
+  tbody.innerHTML=clients.map(c=>{
+    const debts=data.debts.filter(d=>d.clientId===c.id);
+    const total=debts.reduce((s,d)=>s+d.amount,0);
+    const rem=debts.reduce((s,d)=>s+d.remaining,0);
+    const paid=total-rem;
+    const hasOverdue=debts.some(d=>d.status!=='paid'&&isOverdue(d.dueDate));
+    const allPaid=rem===0&&total>0;
+    const badge=allPaid?'<span class="badge badge-green">مسدد</span>':hasOverdue?'<span class="badge badge-red">متأخر</span>':rem>0?'<span class="badge badge-amber">نشط</span>':'<span class="badge badge-blue">جديد</span>';
+    const col=colorFor(c.name);
+    return `<tr>
+      <td><div style="display:flex;align-items:center;gap:9px"><div class="avatar" style="background:${col}18;color:${col};border-color:${col}30">${getInitials(c.name)}</div><div><div style="font-weight:600">${c.name}</div><div style="font-size:11px;color:var(--text3)">${c.phone||'—'}</div></div></div></td>
+      <td style="color:var(--text2)">${c.phone||'—'}</td>
+      <td class="amount-gold">${fmtMoney(total)} دج</td>
+      <td class="amount-green">${fmtMoney(paid)} دج</td>
+      <td class="amount-red">${fmtMoney(rem)} دج</td>
+      <td>${badge}</td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-success" style="font-size:11px;padding:5px 10px" onclick="openPayForClient('${c.id}')"><i class="ti ti-cash"></i> دفع</button>
+          <button class="btn btn-danger" style="font-size:11px;padding:5px 10px" onclick="deleteClient('${c.id}')"><i class="ti ti-trash"></i></button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterClients(q){
+  const filtered=data.clients.filter(c=>c.name.includes(q)||c.phone?.includes(q));
+  renderClientsTable(filtered);
+}
+
+function openPayForClient(cid){
+  openModal('add-payment');
+  setTimeout(()=>{
+    const sel=document.getElementById('p-debt');
+    const opts=[...sel.options];
+    const debt=data.debts.find(d=>d.clientId===cid&&d.status!=='paid');
+    if(debt)sel.value=debt.id,fillPaymentMax();
+  },150);
+}
+
+function deleteClient(id){
+  if(!confirm('هل تريد حذف هذا العميل وجميع ديونه؟'))return;
+  data.clients=data.clients.filter(c=>c.id!==id);
+  data.debts=data.debts.filter(d=>d.clientId!==id);
+  data.payments=data.payments.filter(p=>p.clientId!==id);
+  save();refreshClients();refreshDashboard();toast('تم حذف العميل','ti-trash','var(--accent3)');
+}
+
+function refreshPayments(){
+  const tbody=document.getElementById('payments-tbody');
+  if(!data.payments.length){tbody.innerHTML='<tr><td colspan="4"><div class="empty-state"><div class="empty-icon">💳</div><div class="empty-text">لا توجد مدفوعات بعد</div></div></td></tr>';return}
+  const sorted=[...data.payments].sort((a,b)=>b.date.localeCompare(a.date));
+  tbody.innerHTML=sorted.map(p=>{
+    const cl=data.clients.find(c=>c.id===p.clientId);
+    return `<tr><td>${formatDate(p.date)}</td><td>${cl?cl.name:'—'}</td><td class="amount-green">${fmtMoney(p.amount)} دج</td><td style="color:var(--text2)">${p.note||'—'}</td></tr>`;
+  }).join('');
+}
+
+function refreshDebtsList(){
+  const tbody=document.getElementById('all-debts-tbody');
+  renderAllDebts(data.debts);
+}
+
+function renderAllDebts(debts){
+  const tbody=document.getElementById('all-debts-tbody');
+  if(!debts.length){tbody.innerHTML='<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">لا توجد ديون</div></div></td></tr>';return}
+  tbody.innerHTML=debts.map(d=>{
+    const cl=data.clients.find(c=>c.id===d.clientId);
+    const ov=d.status!=='paid'&&isOverdue(d.dueDate);
+    const badge=d.status==='paid'?'<span class="badge badge-green">مسدد</span>':ov?'<span class="badge badge-red">متأخر</span>':'<span class="badge badge-amber">نشط</span>';
+    const col=colorFor(cl?cl.name:'');
+    return `<tr>
+      <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="background:${col}18;color:${col};border-color:${col}30">${cl?getInitials(cl.name):'?'}</div>${cl?cl.name:'محذوف'}</div></td>
+      <td style="color:var(--text2)">${d.shop||'—'}</td>
+      <td class="amount-gold">${fmtMoney(d.amount)} دج</td>
+      <td class="amount-red">${fmtMoney(d.remaining)} دج</td>
+      <td style="color:${ov?'var(--accent3)':'var(--text2)'}">${formatDate(d.dueDate)}</td>
+      <td>${badge}</td>
+      <td>
+        <div style="display:flex;gap:6px">
+          ${d.status!=='paid'?`<button class="btn btn-success" style="font-size:11px;padding:5px 10px" onclick="quickPay('${d.id}')"><i class="ti ti-cash"></i> دفعة</button>`:''}
+          <button class="btn btn-danger" style="font-size:11px;padding:5px 10px" onclick="deleteDebt('${d.id}')"><i class="ti ti-trash"></i></button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterDebtStatus(status,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered=status==='all'?data.debts:data.debts.filter(d=>status==='overdue'?(d.status!=='paid'&&isOverdue(d.dueDate)):d.status===status);
+  renderAllDebts(filtered);
+}
+
+function deleteDebt(id){
+  if(!confirm('هل تريد حذف هذا الدَيْن؟'))return;
+  data.debts=data.debts.filter(d=>d.id!==id);
+  save();refreshDebtsList();refreshDashboard();toast('تم حذف الدَيْن','ti-trash','var(--accent3)');
+}
+
+function refreshReports(){
+  const total=data.debts.reduce((s,d)=>s+d.amount,0);
+  const remaining=data.debts.filter(d=>d.status!=='paid').reduce((s,d)=>s+d.remaining,0);
+  const paid=total-remaining;
+  const rate=total>0?Math.round(paid/total*100):0;
+  const avg=data.debts.length?Math.round(total/data.debts.length):0;
+  const max=data.debts.length?Math.max(...data.debts.map(d=>d.amount)):0;
+  document.getElementById('rep-rate').textContent=rate+'%';
+  document.getElementById('rep-bar').style.width=rate+'%';
+  document.getElementById('rep-avg').textContent=fmtMoney(avg)+' دج';
+  document.getElementById('rep-max').textContent=fmtMoney(max)+' دج';
+  document.getElementById('rep-shops').textContent=data.shops.length;
+  document.getElementById('report-detail').innerHTML=`
+    <strong>إجمالي الديون المسجلة:</strong> ${fmtMoney(total)} دج<br>
+    <strong>المبالغ المحصّلة:</strong> ${fmtMoney(paid)} دج<br>
+    <strong>المبالغ المتبقية:</strong> ${fmtMoney(remaining)} دج<br>
+    <strong>عدد العملاء:</strong> ${data.clients.length} عميل<br>
+    <strong>عدد الديون:</strong> ${data.debts.length} (${data.debts.filter(d=>d.status==='paid').length} مسددة)<br>
+    <strong>عدد المدفوعات:</strong> ${data.payments.length} دفعة<br>
+    <strong>نسبة التحصيل:</strong> ${rate}%
+  `;
+}
+
+function refreshAlerts(){
+  const el=document.getElementById('alerts-list');
+  const overdue=data.debts.filter(d=>d.status!=='paid'&&isOverdue(d.dueDate));
+  if(!overdue.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">لا توجد ديون متأخرة</div></div>';return}
+  el.innerHTML=overdue.map(d=>{
+    const cl=data.clients.find(c=>c.id===d.clientId);
+    const days=Math.floor((new Date()-new Date(d.dueDate))/86400000);
+    return `<div class="activity-item"><div class="activity-icon" style="background:rgba(239,68,68,.1)"><i class="ti ti-alert-triangle" style="color:var(--accent3)"></i></div><div style="flex:1"><div class="activity-text"><strong>${cl?cl.name:'—'}</strong> — متأخر منذ ${days} يوم</div><div style="display:flex;justify-content:space-between;margin-top:4px"><div class="activity-time">${formatDate(d.dueDate)}</div><span class="amount-red" style="font-size:13px">${fmtMoney(d.remaining)} دج</span></div></div><button class="btn btn-success" style="font-size:11px;padding:5px 10px;margin-right:8px" onclick="quickPay('${d.id}')"><i class="ti ti-cash"></i> دفع</button></div>`;
+  }).join('');
+}
+
+function refreshShops(){
+  const el=document.getElementById('shops-list');
+  el.innerHTML=data.shops.map((s,i)=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)"><div style="display:flex;align-items:center;gap:12px"><div style="width:36px;height:36px;border-radius:8px;background:rgba(245,158,11,.1);display:flex;align-items:center;justify-content:center"><i class="ti ti-building-store" style="color:var(--gold)"></i></div><div><div style="font-weight:600;font-size:14px">${s}</div><div style="font-size:12px;color:var(--text3)">${data.debts.filter(d=>d.shop===s).length} دَيْن مسجل</div></div></div>${i>0?`<button class="btn btn-danger" style="font-size:11px;padding:5px 10px" onclick="deleteShop(${i})"><i class="ti ti-trash"></i></button>`:''}</div>`).join('');
+}
+
+function deleteShop(i){
+  if(!confirm('هل تريد حذف هذا المحل؟'))return;
+  data.shops.splice(i,1);save();refreshShops();toast('تم حذف المحل','ti-trash','var(--accent3)');
+}
+
+function filterTable(q){
+  if(!q)return refreshDashboard();
+  const filtered=data.debts.filter(d=>{const cl=data.clients.find(c=>c.id===d.clientId);return cl&&cl.name.includes(q)});
+  // quick render filtered
+  const tbody=document.getElementById('debts-tbody');
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">لا نتائج</div></div></td></tr>';return}
+  // reuse logic
+}
+
+function updateBadge(){document.getElementById('badge-count').textContent=data.clients.length}
+
+function saveSettings(){toast('تم حفظ الإعدادات')}
+function clearAll(){data={clients:[],debts:[],payments:[],shops:['محل الأمل - العام']};save();refreshDashboard();toast('تم مسح البيانات','ti-trash','var(--accent3)')}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='deintrack-export.json';a.click();
+  toast('تم تصدير البيانات بنجاح');
+}
+
+// INIT
+const now=new Date();
+document.getElementById('current-date').textContent=`${days[now.getDay()]}، ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+updateBadge();
+refreshDashboard();
+renderActivity();
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')}));
+</script>
+</body>
+</html>
